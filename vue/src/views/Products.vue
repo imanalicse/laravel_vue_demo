@@ -14,12 +14,13 @@
           </router-link>
        </div>
        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
-         <div v-for="survey in surveys" :key="survey.id" class="flex flex-col py-4 px-6 shadow-md bg-white hover:bg-gray-50 h-[470]">
-            <img :src="survey.image" alt="" class="w-full h-48 object-cover">
-            <h4 class="mt-4 text-lg font-bold">{{ survey.title }}</h4>
-            <div v-html="survey.description" class="overflow-hidden flex-1"></div>
+       {{products}}
+         <div v-for="product in products" :key="product.id" class="flex flex-col py-4 px-6 shadow-md bg-white hover:bg-gray-50 h-[470]">
+<!--            <img :src="product.image" alt="" class="w-full h-48 object-cover">-->
+            <h4 class="mt-4 text-lg font-bold">{{ product.name }}</h4>
+            <div v-html="product.description" class="overflow-hidden flex-1"></div>
             <div class="flex justify-between">
-              <router-link :to="{ name: 'SurveyView', params: { id: survey.id } }"
+              <router-link :to="{ name: 'productView', params: { id: product.id } }"
                 class="flex py-2 px-4 border border-transparent text-sm rounded-md
                 text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -27,7 +28,7 @@
                 </svg>
                 Edit
               </router-link>
-              <button v-if="survey.id" type="button" @click="deleteSurvey(survey)" class="h-8 w-8 flex items-center
+              <button v-if="product.id" type="button" @click="deleteproduct(product)" class="h-8 w-8 flex items-center
               rounded-full border border-transparent text-sm text-red-500 focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -43,12 +44,17 @@
 <script setup>
 import PageComponent from "../components/PageComponent.vue"
 import {computed} from "vue";
-import store from "../store";
+import axiosClient from "../axios";
 
-const surveys = computed(()=> store.state.surveys);
+const products = computed(()=> {
+    axiosClient.get('/products')
+     .then((resp) => {
+          console.log(resp.data.data.data)
+     });
+});
 
-function deleteSurvey(survey) {
-  if (confirm(`Are you sure you want to delete this survey? Operation can't be undone!!`)) {
+function deleteproduct(product) {
+  if (confirm(`Are you sure you want to delete this product? Operation can't be undone!!`)) {
 
   }
 }
