@@ -5,8 +5,7 @@
           <h1 class="text-3xl font-bold text-gray-900">Products</h1>
           <router-link
             :to="{ name: 'ProductCreate' }"
-            class="py-2 px-2 text-white bg-emerald-500 rounded-md hover:bg-emerald-600"
-          >
+            class="py-2 px-2 text-white rounded-md bg-blue-500 hover:bg-blue-700">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 -mt-1 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
             </svg>
@@ -20,7 +19,7 @@
             <th>Name</th>
             <th>Price</th>
             <th>description</th>
-            <th>Action</th>
+            <th>Actions</th>
           </tr>
           <tr v-for="product in products" :key="product.id">
             <td>{{ product.id }}</td>
@@ -28,21 +27,18 @@
             <td>${{ product.price  }}</td>
             <td>{{ product.description }}</td>
             <td>
-
-              <router-link :to="{ name: 'ProductEdit', params: { id: product.id } }"
-                class="flex py-2 px-4 border border-transparent text-sm rounded-md
-                text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" >
-                <svg style="display: inline" xmlns="http://www.w3.org/2000/svg" class="h-8 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                </svg>
+              <div style="display: flex">
+                <router-link :to="{ name: 'ProductEdit', params: { id: product.id } }">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                  </svg>
               </router-link>
-
-              <button style="display: inline" v-if="product.id" type="button" @click="deleteProduct(product.id)" class="h-8 w-8 flex items-center
-              rounded-full border border-transparent text-sm text-red-500 focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              <button v-if="product.id" type="button" @click="deleteProduct(product.id)">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </button>
+              </div>
             </td>
           </tr>
        </table>
