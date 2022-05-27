@@ -58,8 +58,9 @@ const store = createStore({
            state.currentProduct.data = product.data
        },
        logout: (state) => {
-        state.user.data = {},
-        state.user.token = null
+            state.user.data = {},
+            state.user.token = null
+            sessionStorage.removeItem("TOKEN");
        },
        setUser: (state, userData) => {
             state.user.token = userData.token;
