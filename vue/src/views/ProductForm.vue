@@ -42,9 +42,6 @@ import PageComponent from "../components/PageComponent.vue";
 import {useRoute, useRouter} from "vue-router";
 import axiosClient from "../axios";
 
-const route = useRoute();
-// const router = useRouter();
-
   export default {
      components: {
       PageComponent
@@ -55,7 +52,7 @@ const route = useRoute();
             model: {
               name: '',
               description: '',
-              price: 0,
+              price: '',
             },
             router: useRouter()
         }
@@ -64,6 +61,7 @@ const route = useRoute();
     },
      mounted() {
       if (this.$route.params && this.$route.params.id) {
+        this.pageTitle = 'Edit Product'
         let id = this.$route.params.id;
         axiosClient.get(`/products/${id}`)
          .then((resp) => {
@@ -73,21 +71,35 @@ const route = useRoute();
     },
     methods: {
         saveProduct(ev) {
+          document.querySelectorAll(".validate_error").forEach(ele =>{
+            ele.remove();
+          });
+
           axiosClient.post('/products', this.model)
-           .then(success => {
-                  this.router.push({
-                    'name':"Product"
-                  })
-              }, error => {
+           .then(resp => {
+                  if (resp.data.status === true) {
+                    this.router.push({
+                      'name': "Products"
+                    })
+                  }
+                  else if (resp.data.status === false) {
+                    let errors = resp.data.message;
+                    Object.entries(errors).forEach(item => {
+                      let field_name = item[0];
+                      let error_msg = item[1][0];
+                      let error = document.createElement('span');
+                      error.classList.add("validate_error");
+                      error.textContent = error_msg;
+                      document.querySelector("input[name='"+ field_name +"'").parentElement.appendChild(error);
+                    });
+                  }
+              },
+              error => {
                 console.log(error);
-                if(error.code == 422){
-                    console.log(error.data)
-                }
               }
            )
            .catch((err) => {
-              console.log('catch called')
-              console.log(err)
+              console.log('catch error', err)
            })
            ;
         }
@@ -96,6 +108,8 @@ const route = useRoute();
 
 </script>
 
-<style scoped>
-
+<style>
+  .validate_error {
+    color: red;
+  }
 </style>

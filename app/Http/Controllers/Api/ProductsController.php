@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use \App\Traits\CommonTrait;
 
 class ProductsController extends Controller
 {
+    use CommonTrait;
 
     public function index()
     {
@@ -20,15 +23,22 @@ class ProductsController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'price' => 'required|numeric',
         ]);
 
-        $product = Product::create($data);
+        if($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => $validator->errors()
+            ]);
+        }
+
+        $product = Product::create($request->all());
 
         return response([
-            'success' => true,
+            'status' => true,
             'data' => $product
         ]);
     }
