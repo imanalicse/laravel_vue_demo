@@ -8,25 +8,9 @@ const store = createStore({
             },
             token: sessionStorage.getItem("TOKEN")
         },
-        currentProduct: {
-            loading: false,
-            data: {}
-        },
     },
     getters: {},
     actions: {
-        getProduct({commit}, id) {
-             commit('setCurrentProductLoading', true)
-             return axiosClient.get(`/products/${id}`)
-               .then((res) => {
-                    commit('setCurrentProduct', res.data);
-                    commit('setCurrentProductLoading', false)
-                    return res;
-               }).catch((err) => {
-                    commit('setCurrentProductLoading', false)
-                    throw err;
-               });
-        },
         register({ commit }, user) {
             return axiosClient.post('/register', user)
                .then(({data}) => {
@@ -51,12 +35,6 @@ const store = createStore({
         }
     },
     mutations: {
-        setCurrentProductLoading: (state, loading) => {
-           state.currentProduct.loading = loading
-       },
-        setCurrentProduct: (state, product) => {
-           state.currentProduct.data = product.data
-       },
        logout: (state) => {
             state.user.data = {},
             state.user.token = null
