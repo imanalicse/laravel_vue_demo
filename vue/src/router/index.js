@@ -6,6 +6,7 @@ import DefaultLayout from "../components/DefaultLayout.vue";
 import Surveys from "../views/Surveys.vue";
 import Products from "../views/Products.vue";
 import ProductView from "../views/ProductView.vue";
+import ProductForm from "../views/ProductForm.vue";
 import SurveyView from "../views/SurveyView.vue";
 import Posts from "../views/Posts.vue";
 import store from "../store";
@@ -25,8 +26,9 @@ const routes = [
             { path: '/products/create', name: 'ProductCreate', component: ProductView },
             { path: '/surveys/create', name: 'SurveyCreate', component: SurveyView },
             { path: '/products/:id', name: 'ProductView', component: ProductView },
+            { path: '/products/:id/edit', name: 'ProductEdit', component: ProductForm },
             { path: '/surveys/:id', name: 'SurveyView', component: SurveyView },
-            { path: '/posts/', name: 'Posts', component: Posts }
+            { path: '/ports/', name: 'Posts', component: Posts }
         ]
     },
     {
