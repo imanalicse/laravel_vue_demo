@@ -5,6 +5,7 @@ const store = createStore({
     state: {
         user: {
             data: {
+                imageUrl: 'https://media-exp1.licdn.com/dms/image/C5603AQGwbo9rdQQKiw/profile-displayphoto-shrink_100_100/0/1516824621775?e=1658966400&v=beta&t=bfUtHtcrvK9RCG_Aa-5fP4jJ0mR4d8rXCK_k2EDasX4'
             },
             token: sessionStorage.getItem("TOKEN")
         },

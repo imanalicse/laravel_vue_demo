@@ -100,8 +100,7 @@ import axiosClient from "../axios";
            )
            .catch((err) => {
               console.log('catch error', err)
-           })
-           ;
+           });
         }
     }
 }

@@ -115,7 +115,6 @@ export default {
     XIcon,
   },
   setup() {
-    //const  store = useStore();
     const router = useRouter();
 
     function logout() {
