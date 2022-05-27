@@ -53,11 +53,13 @@ let model = {
   price: 0,
 };
 
-// if (route.params.id) {
-//   model.value = store.state.surveys.find(
-//       (s) => s.id === parseInt(route.params.id)
-//   );
-// }
+if (route.params.id) {
+  // model.value = store.state.surveys.find(
+  //     (s) => s.id === parseInt(route.params.id)
+  // );
+  store.dispatch('getProduct', route.params.id);
+  // model = store.state.currentProduct.data;
+}
 
 function saveProduct(ev) {
     axiosClient.post('/products', model)

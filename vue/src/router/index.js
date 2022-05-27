@@ -7,6 +7,7 @@ import Surveys from "../views/Surveys.vue";
 import Products from "../views/Products.vue";
 import ProductView from "../views/ProductView.vue";
 import SurveyView from "../views/SurveyView.vue";
+import Posts from "../views/Posts.vue";
 import store from "../store";
 import AuthLayout from "../components/AuthLayout.vue";
 
@@ -23,7 +24,9 @@ const routes = [
             { path: '/products', name: 'Products', component: Products },
             { path: '/products/create', name: 'ProductCreate', component: ProductView },
             { path: '/surveys/create', name: 'SurveyCreate', component: SurveyView },
-            { path: '/surveys/:id', name: 'SurveyView', component: SurveyView }
+            { path: '/products/:id', name: 'ProductView', component: ProductView },
+            { path: '/surveys/:id', name: 'SurveyView', component: SurveyView },
+            { path: '/posts/', name: 'Posts', component: Posts }
         ]
     },
     {
