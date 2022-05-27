@@ -26,6 +26,9 @@
               </div>
 
               <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                <button type="button" @click.prevent="cancel" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-600">
+                  Cancel
+                </button> &nbsp;
                 <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                   Save
                 </button>
@@ -50,6 +53,7 @@ export default {
         return {
             pageTitle: 'Create Product',
             model: {
+              id: null,
               name: '',
               description: '',
               price: '',
@@ -75,24 +79,17 @@ export default {
             ele.remove();
           });
 
-          axiosClient.post('/products', this.model)
+          let action;
+          if (this.$route.params && this.$route.params.id) {
+               action = axiosClient.patch(`/products/${this.$route.params.id}`, this.model);
+          }
+          else {
+             action = axiosClient.post(`/products`, this.model);
+          }
+
+          action
            .then(resp => {
-                  if (resp.data.status === true) {
-                    this.router.push({
-                      'name': "Products"
-                    })
-                  }
-                  else if (resp.data.status === false) {
-                    let errors = resp.data.message;
-                    Object.entries(errors).forEach(item => {
-                      let field_name = item[0];
-                      let error_msg = item[1][0];
-                      let error = document.createElement('span');
-                      error.classList.add("validate_error");
-                      error.textContent = error_msg;
-                      document.querySelector("input[name='"+ field_name +"'").parentElement.appendChild(error);
-                    });
-                  }
+                  this.afterSaveAction(resp);
               },
               error => {
                 console.log(error);
@@ -101,6 +98,29 @@ export default {
            .catch((err) => {
               console.log('catch error', err)
            });
+        },
+        cancel(e) {
+           this.router.push({
+                'name': "Products"
+           })
+        },
+        afterSaveAction(resp) {
+          if (resp.data.status === true) {
+                this.router.push({
+                  'name': "Products"
+                })
+              }
+              else if (resp.data.status === false) {
+                let errors = resp.data.message;
+                Object.entries(errors).forEach(item => {
+                  let field_name = item[0];
+                  let error_msg = item[1][0];
+                  let error = document.createElement('span');
+                  error.classList.add("validate_error");
+                  error.textContent = error_msg;
+                  document.querySelector("input[name='"+ field_name +"'").parentElement.appendChild(error);
+                });
+              }
         }
     }
 }

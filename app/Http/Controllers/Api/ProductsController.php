@@ -52,6 +52,31 @@ class ProductsController extends Controller
         ]);
     }
 
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'price' => 'required|numeric',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => $validator->errors()
+            ]);
+        }
+
+        $post_data = $request->all();
+        unset($post_data['created_at']);
+        unset($post_data['updated_at']);
+
+        $product = Product::whereId($id)->update($post_data);
+         return response([
+            'status' => true,
+            'data' => $product
+        ]);
+    }
+
     public function delete($id)
     {
         $product = Product::find($id);

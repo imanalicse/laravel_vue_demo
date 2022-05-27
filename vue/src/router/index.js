@@ -4,7 +4,6 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import DefaultLayout from "../components/DefaultLayout.vue";
 import Products from "../views/Products.vue";
-import ProductView from "../views/ProductView.vue";
 import ProductForm from "../views/ProductForm.vue";
 import store from "../store";
 import AuthLayout from "../components/AuthLayout.vue";
@@ -20,7 +19,6 @@ const routes = [
             { path: '/dashboard', name: 'Dashboard', component: Dashboard },
             { path: '/products', name: 'Products', component: Products },
             { path: '/products/create', name: 'ProductCreate', component: ProductForm },
-            { path: '/products/:id', name: 'ProductView', component: ProductForm },
             { path: '/products/:id/edit', name: 'ProductEdit', component: ProductForm },
         ]
     },
