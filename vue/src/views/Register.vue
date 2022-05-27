@@ -58,12 +58,11 @@
 </template>
 
 <script setup>
-  import { LockClosedIcon } from '@heroicons/vue/solid'
-  import store from "../store";
-  //import router from "../router";
-  import { useRouter } from "vue-router";
+import store from "../store";
+//import router from "../router";
+import { useRouter } from "vue-router";
 
-  const router = useRouter();
+const router = useRouter();
   const user = {
     name: '',
     email: '',
@@ -75,11 +74,26 @@
     ev.preventDefault();
 
     store.dispatch('register', user)
-    .then((res) => {
-      router.push({
-        name: 'Dashboard'
-      })
-    })
+    .then((resp) => {
+      if (resp.status === true) {
+            router.push({
+              'name': "Dashboard"
+            })
+          }
+          else if (resp.status === false) {
+            let errors = resp.errors;
+            Object.entries(errors).forEach(item => {
+              let field_name = item[0];
+              let error_msg = item[1][0];
+              let error = document.createElement('div');
+              error.classList.add("validate_error");
+              error.textContent = error_msg;
+              document.querySelector("input[name='"+ field_name +"'").parentElement.appendChild(error);
+            });
+        }
+    }).catch((err) => {
+      console.log('error', err)
+   })
   }
 
 </script>

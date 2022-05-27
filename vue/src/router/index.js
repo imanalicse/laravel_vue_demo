@@ -3,12 +3,9 @@ import Dashboard from "../views/Dashboard.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import DefaultLayout from "../components/DefaultLayout.vue";
-import Surveys from "../views/Surveys.vue";
 import Products from "../views/Products.vue";
 import ProductView from "../views/ProductView.vue";
 import ProductForm from "../views/ProductForm.vue";
-import SurveyView from "../views/SurveyView.vue";
-import Posts from "../views/Posts.vue";
 import store from "../store";
 import AuthLayout from "../components/AuthLayout.vue";
 
@@ -21,14 +18,10 @@ const routes = [
         meta: { requiresAuth: true },
         children: [
             { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-            { path: '/surveys', name: 'Surveys', component: Surveys },
             { path: '/products', name: 'Products', component: Products },
             { path: '/products/create', name: 'ProductCreate', component: ProductForm },
-            { path: '/surveys/create', name: 'SurveyCreate', component: SurveyView },
             { path: '/products/:id', name: 'ProductView', component: ProductForm },
             { path: '/products/:id/edit', name: 'ProductEdit', component: ProductForm },
-            { path: '/surveys/:id', name: 'SurveyView', component: SurveyView },
-            { path: '/ports/', name: 'Posts', component: Posts }
         ]
     },
     {
