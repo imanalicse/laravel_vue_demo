@@ -27,6 +27,9 @@ class ProductsController extends Controller
             'name' => 'required|string',
             'price' => 'required|numeric',
         ]);
+        sleep(10);
+        $this->customLog($request->all());
+
 
         if($validator->fails()) {
             return response()->json([
