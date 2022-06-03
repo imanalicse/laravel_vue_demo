@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Utils\FileHandler;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -31,11 +32,16 @@ class ProductsController extends Controller
         $this->customLog($request->all());
 
 
+
         if($validator->fails()) {
             return response()->json([
                 'status' => false,
                 'message' => $validator->errors()
             ]);
+        }
+        if ($request->get('image')) {
+            $file_handler = new FileHandler();
+            //$result = $file_handler->upload($request->get('image'), $upload_file_path, ['xls','xlsx']);
         }
 
         $product = Product::create($request->all());
