@@ -44,7 +44,23 @@ class ProductsController extends Controller
             //$result = $file_handler->upload($request->get('image'), $upload_file_path, ['xls','xlsx']);
         }
 
-        $product = Product::create($request->all());
+        $imagePath = '';
+        if($request->hasFile('image')) {
+           $name_with_ext = $request->file('image')->getClientOriginalName();
+           $name_without_ext = pathinfo($name_with_ext, PATHINFO_FILENAME);
+           $extension = $request->file('image')->getClientOriginalExtension();
+           $new_filename = $name_without_ext . "_". time() . "." . $extension;
+           $imagePath = $request->file('image')->storeAs('uploads', $new_filename, 'public');
+        }
+
+        // $product = Product::create($request->all());
+
+        $product = new Product();
+        $product->name = trim($request->input('name'));
+        $product->price = $request->input('price');
+        $product->image = $imagePath;
+        $product->description = $request->input('description');
+        $product->save();
 
         return response([
             'status' => true,
