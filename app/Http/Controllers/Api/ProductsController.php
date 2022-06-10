@@ -16,6 +16,14 @@ class ProductsController extends Controller
     public function index()
     {
         $products = Product::paginate(20);
+        $this->customLog('$products');
+        foreach ($products as $product) {
+            if (!empty($product->image)) {
+                $product->image = asset($product->image);
+            }
+            $this->customLog($product->image);
+        }
+
         return response([
             'success' => true,
             'data' => $products
@@ -28,7 +36,6 @@ class ProductsController extends Controller
             'name' => 'required|string',
             'price' => 'required|numeric',
         ]);
-        sleep(10);
         $this->customLog($request->all());
 
 
@@ -50,7 +57,9 @@ class ProductsController extends Controller
            $name_without_ext = pathinfo($name_with_ext, PATHINFO_FILENAME);
            $extension = $request->file('image')->getClientOriginalExtension();
            $new_filename = $name_without_ext . "_". time() . "." . $extension;
-           $imagePath = $request->file('image')->storeAs('uploads', $new_filename, 'public');
+           //$imagePath = $request->file('image')->storeAs('public/uploads', $new_filename);
+            $imagePath = $request->file('image')->storeAs('uploads', $new_filename, 'public');
+            $imagePath = 'storage' . '/' . $imagePath;
         }
 
         // $product = Product::create($request->all());

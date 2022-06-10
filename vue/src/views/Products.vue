@@ -18,14 +18,16 @@
             <th>ID</th>
             <th>Name</th>
             <th>Price</th>
-            <th>description</th>
+            <th>Image</th>
             <th>Actions</th>
           </tr>
           <tr v-for="product in products" :key="product.id">
             <td>{{ product.id }}</td>
             <td>{{ product.name }}</td>
             <td>${{ product.price  }}</td>
-            <td>{{ product.description }}</td>
+            <td>
+              <img :src=product.image width="50">
+            </td>
             <td>
               <div style="display: flex">
                 <router-link :to="{ name: 'ProductEdit', params: { id: product.id } }">
