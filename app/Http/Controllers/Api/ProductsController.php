@@ -16,12 +16,10 @@ class ProductsController extends Controller
     public function index()
     {
         $products = Product::paginate(20);
-        $this->customLog('$products');
         foreach ($products as $product) {
             if (!empty($product->image)) {
                 $product->image = asset($product->image);
             }
-            $this->customLog($product->image);
         }
 
         return response([
@@ -36,9 +34,8 @@ class ProductsController extends Controller
             'name' => 'required|string',
             'price' => 'required|numeric',
         ]);
+
         $this->customLog($request->all());
-
-
 
         if($validator->fails()) {
             return response()->json([
@@ -46,18 +43,13 @@ class ProductsController extends Controller
                 'message' => $validator->errors()
             ]);
         }
-        if ($request->get('image')) {
-            $file_handler = new FileHandler();
-            //$result = $file_handler->upload($request->get('image'), $upload_file_path, ['xls','xlsx']);
-        }
 
         $imagePath = '';
         if($request->hasFile('image')) {
-           $name_with_ext = $request->file('image')->getClientOriginalName();
-           $name_without_ext = pathinfo($name_with_ext, PATHINFO_FILENAME);
-           $extension = $request->file('image')->getClientOriginalExtension();
-           $new_filename = $name_without_ext . "_". time() . "." . $extension;
-           //$imagePath = $request->file('image')->storeAs('public/uploads', $new_filename);
+            $name_with_ext = $request->file('image')->getClientOriginalName();
+            $name_without_ext = pathinfo($name_with_ext, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $new_filename = $name_without_ext . "_". time() . "." . $extension;
             $imagePath = $request->file('image')->storeAs('uploads', $new_filename, 'public');
             $imagePath = 'storage' . '/' . $imagePath;
         }
