@@ -2,24 +2,24 @@ import {createRouter, createWebHistory} from "vue-router";
 import Dashboard from "../views/Dashboard.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
-import DefaultLayout from "../components/DefaultLayout.vue";
+import AdminLayout from "../components/Layout/AdminLayout.vue";
 import Products from "../views/Products.vue";
 import ProductForm from "../views/ProductForm.vue";
 import store from "../store";
-import AuthLayout from "../components/AuthLayout.vue";
+import AuthLayout from "../components/Layout/AuthLayout.vue";
 
 const routes = [
     {
         path: '/',
-        redirect: '/dashboard',
+        redirect: '/admin/dashboard',
         name: 'Dashboard',
-        component: DefaultLayout,
+        component: AdminLayout,
         meta: { requiresAuth: true },
         children: [
-            { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-            { path: '/products', name: 'Products', component: Products },
-            { path: '/products/create', name: 'ProductCreate', component: ProductForm },
-            { path: '/products/:id/edit', name: 'ProductEdit', component: ProductForm },
+            { path: '/admin/dashboard', name: 'Dashboard', component: Dashboard },
+            { path: '/admin/products', name: 'Products', component: Products },
+            { path: '/admin/products/create', name: 'ProductCreate', component: ProductForm },
+            { path: '/admin/products/:id/edit', name: 'ProductEdit', component: ProductForm },
         ]
     },
     {

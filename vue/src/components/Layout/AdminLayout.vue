@@ -92,7 +92,7 @@
 import {Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems} from '@headlessui/vue'
 import {MenuIcon, XIcon} from '@heroicons/vue/outline'
 import {computed} from "vue";
-import store from "../store";
+import store from "../../store";
 import { useRouter } from "vue-router"
 
 
