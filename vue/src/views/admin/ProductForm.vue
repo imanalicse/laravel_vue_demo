@@ -70,9 +70,9 @@
 </template>
 
 <script>
-import PageComponent from "../components/PageComponent.vue";
+import PageComponent from "../../components/PageComponent.vue";
 import {useRouter} from "vue-router";
-import axiosClient from "../axios";
+import axiosClient from "../../axios";
 
 export default {
      components: {
@@ -153,13 +153,13 @@ export default {
         },
         cancel(e) {
            this.router.push({
-                'name': "Products"
+                'name': "ProductsAdmin"
            })
         },
         afterSaveAction(resp) {
           if (resp.data.status === true) {
                 this.router.push({
-                  'name': "Products"
+                  'name': "ProductsAdmin"
                 })
               }
               else if (resp.data.status === false) {

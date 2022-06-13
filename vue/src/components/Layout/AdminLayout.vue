@@ -99,7 +99,7 @@ import { useRouter } from "vue-router"
 
 const navigation = [
   { name: 'Dashboard', to: { name: 'Dashboard' } },
-  { name: 'Products', to: { name: 'Products' } },
+  { name: 'Products', to: { name: 'ProductsAdmin' } },
 ]
 
 export default {

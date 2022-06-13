@@ -50,8 +50,8 @@
 </template>
 
 <script>
-import PageComponent from "../components/PageComponent.vue"
-import axiosClient from "../axios";
+import PageComponent from "../../components/PageComponent.vue"
+import axiosClient from "../../axios";
 
 export default {
      components: {
