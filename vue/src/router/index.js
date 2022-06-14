@@ -8,6 +8,7 @@ import Products from "../views/Products.vue";
 import ProductForm from "../views/admin/ProductForm.vue";
 import store from "../store";
 import AuthLayout from "../components/Layout/AuthLayout.vue";
+import FrontEndLayout from "../components/Layout/FrontEndLayout.vue";
 
 const routes = [
     {
@@ -24,14 +25,23 @@ const routes = [
         ]
     },
     {
-        path: '/',
-        redirect: '/home',
+        path: '/Auth',
+        redirect: '/login',
         name: 'Auth',
         component: AuthLayout,
         meta: { isGuest: true },
         children: [
             { path: '/login', name: 'Login', component: Login },
             { path: '/register', name: 'Register', component: Register },
+        ]
+    },
+    {
+        path: '/',
+        redirect: '/home',
+        name: 'FrontEnd',
+        component: FrontEndLayout,
+        meta: { isGuest: true },
+        children: [
             { path: '/home', name: 'Products', component: Products }
         ]
     }
