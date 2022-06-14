@@ -4,13 +4,14 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import AdminLayout from "../components/Layout/AdminLayout.vue";
 import ProductsAdmin from "../views/admin/ProductsAdmin.vue";
+import Products from "../views/Products.vue";
 import ProductForm from "../views/admin/ProductForm.vue";
 import store from "../store";
 import AuthLayout from "../components/Layout/AuthLayout.vue";
 
 const routes = [
     {
-        path: '/',
+        path: '/admin',
         redirect: '/admin/dashboard',
         name: 'Dashboard',
         component: AdminLayout,
@@ -23,14 +24,15 @@ const routes = [
         ]
     },
     {
-        path: '/auth',
-        redirect: '/login',
+        path: '/',
+        redirect: '/home',
         name: 'Auth',
         component: AuthLayout,
         meta: { isGuest: true },
         children: [
             { path: '/login', name: 'Login', component: Login },
-            { path: '/register', name: 'Register', component: Register }
+            { path: '/register', name: 'Register', component: Register },
+            { path: '/home', name: 'Products', component: Products }
         ]
     }
 ];

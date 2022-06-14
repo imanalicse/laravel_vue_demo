@@ -26,7 +26,6 @@ Route::middleware('auth:sanctum')->group( function () {
     });
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/products', [ProductsController::class, 'store']);
-    Route::get('/products', [ProductsController::class, 'index']);
     Route::patch('/products/{id}', [ProductsController::class, 'update']);
     Route::delete('/products/{id}', [ProductsController::class, 'delete']);
 });
@@ -34,3 +33,4 @@ Route::middleware('auth:sanctum')->group( function () {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/products/{id}', [ProductsController::class, 'show']);
+Route::get('/products', [ProductsController::class, 'index']);
