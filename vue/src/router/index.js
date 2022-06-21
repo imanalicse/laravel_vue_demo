@@ -9,6 +9,7 @@ import ProductForm from "../views/admin/ProductForm.vue";
 import store from "../store";
 import AuthLayout from "../components/Layout/AuthLayout.vue";
 import FrontEndLayout from "../components/Layout/FrontEndLayout.vue";
+import Checkout from "../views/Checkout.vue";
 
 const routes = [
     {
@@ -42,7 +43,8 @@ const routes = [
         component: FrontEndLayout,
         meta: { isGuest: true },
         children: [
-            { path: '/home', name: 'Products', component: Products }
+            { path: '/home', name: 'Products', component: Products },
+            { path: '/checkout', name: 'Checkout', component: Checkout }
         ]
     }
 ];
