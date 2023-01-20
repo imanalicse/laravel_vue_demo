@@ -6,6 +6,7 @@ use App\Utils\FileHandler;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use \App\Traits\CommonTrait;
 
@@ -27,6 +28,24 @@ class ProductsController extends Controller
             'data' => $products
         ]);
     }
+
+   public function getProductsByIds(Request $request)
+    {
+        $productIds = $request->input('productIds');
+        $this->customLog($productIds);
+        $products = Product::whereIn('id', $productIds)->paginate(20);
+        foreach ($products as $product) {
+            if (!empty($product->image)) {
+                $product->image = asset($product->image);
+            }
+        }
+
+        return response([
+            'success' => true,
+            'data' => $products
+        ]);
+    }
+
 
     public function store(Request $request)
     {

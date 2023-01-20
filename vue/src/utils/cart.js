@@ -36,12 +36,17 @@ const cart = Object.create(null, {
         }]
       }
       localStore.set('cart', cart);
-      console.log("cart", localStore.get('cart'));
     },
   },
-  removeItem: {
-    value: key => {
-      console.log('removeItem')
+  removeProduct: {
+    value: productId => {
+      let cart = localStore.get('cart');
+      if (cart && cart['products']) {
+        cart['products'] = cart['products'].filter((p) => {
+          return p.productId !== productId
+        });
+        localStore.set('cart', cart);
+      }
     },
   },
   clear: {
